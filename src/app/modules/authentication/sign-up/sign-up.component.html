@@ -1,0 +1,82 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h3>Sign Up</h3>
+      <form [formGroup]="form" (ngSubmit)="signUp()">
+        <div class="form-group row">
+          <label class="label col-2" for="fname">First Name</label>
+          <input
+            type="text"
+            name="fname"
+            class="form-control large col-12"
+            formControlName="fname"
+            [class.is-invalid]="!isControlValid('fname')"
+          />
+        </div>
+
+        <div class="form-group row">
+          <label class="label col-2" for="lname">Last Name</label>
+          <input
+            type="text"
+            name="lname"
+            class="form-control large col-12"
+            formControlName="lname"
+            [class.is-invalid]="!isControlValid('lname')"
+          />
+        </div>
+
+        <div class="form-group row">
+          <label class="label col-2" for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control large col-12"
+            formControlName="email"
+            placeholder="example@molekule.com"
+            [class.is-invalid]="!isControlValid('email')"
+          />
+        </div>
+
+        <div class="form-group row">
+          <label class="label col-2" for="lname">Phone Number</label>
+          <input
+            type="number"
+            name="phone"
+            class="form-control large col-12"
+            formControlName="phone"
+            [class.is-invalid]="!isControlValid('phone')"
+          />
+        </div>
+
+        <div class="form-group row">
+          <label for="country" class="label col-2">Country</label>
+          <select
+            name="country"
+            id="country"
+            class="form-control col-4"
+            formControlName="country"
+            [class.is-invalid]="!isControlValid('country')"
+          >
+            <option [ngValue]="country" *ngFor="let country of countries">{{
+              country
+            }}</option>
+          </select>
+        </div>
+
+        <!-- <button
+          class="btn btn-primary mt-3"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          LogIn
+        </button> -->
+
+        <!-- <a type="button" class="btn btn-link" [routerLink]="'/sign-up'">Sing Up</a> -->
+
+        <button class="btn btn-primary mt-3" type="submit">
+          Sign Up
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

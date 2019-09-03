@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-12">
+        <h1>Customers List</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+  <div class="card-columns">
+    <div class="card" *ngFor="let customer of customers">
+      <img src="../../../../assets/images/generic-avatar.png" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ customer.fname }} {{ customer.lname }}</h5>
+        <p class="card-text">
+          {{ customer.description }}
+        </p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
