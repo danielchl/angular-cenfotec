@@ -1,0 +1,12 @@
+<header class="row">
+  <div class="col-12">
+    <nav class="nav" *ngIf="isLoggedIn">
+      <a class="nav-link active" [routerLink]="[ '/customers' ]">Customers</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
+        >Disabled</a
+      >
+    </nav>
+  </div>
+</header>
