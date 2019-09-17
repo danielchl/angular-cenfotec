@@ -26,4 +26,8 @@ export class AuthenticationService {
 
     return true;
   }
+
+  public getAuhtData(): any{ 
+    return this.localStorageService.get('authUser');
+  }
 }

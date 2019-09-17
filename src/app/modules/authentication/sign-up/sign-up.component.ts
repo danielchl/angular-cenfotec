@@ -38,6 +38,13 @@ export class SignUpComponent implements OnInit {
       ],
       country: ["", Validators.required]
     });
+
+    // this.form.setValue()
+
+    this.form.patchValue({
+      country: 'CRC'
+    })
+
   }
 
   public signUp() {

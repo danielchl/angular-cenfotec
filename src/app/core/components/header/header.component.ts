@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
-  selector: 'cenfo-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: "cenfo-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
+  // public isLoggedIn: boolean = false;
 
-  public isLoggedIn: boolean = false;
+  constructor(private readonly authService: AuthenticationService) {}
 
-  constructor( private readonly authService: AuthenticationService ) { 
+  ngOnInit() {}
 
-    this.isLoggedIn = this.authService.isLoggedIn();
+  public get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
-
-  ngOnInit() {
-  }
-
 }
