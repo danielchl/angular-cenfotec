@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "../../../core/services/authentication.service";
+import { CONFIG } from '../../../config/index';
 
 @Component({
   selector: "cenfo-login",
@@ -11,6 +12,7 @@ import { AuthenticationService } from "../../../core/services/authentication.ser
 export class LoginComponent implements OnInit {
   
   public isLoggedIn: boolean = false;
+  public emailPattern: any = CONFIG.patterns.email;
 
   constructor(
     private readonly route: Router,
