@@ -1,12 +1,16 @@
 import { Injectable } from "@angular/core";
 import { CONFIG } from "../../config/index";
 import { LocalstorageService } from "./localstorage.service";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthenticationService {
-  constructor(private readonly localStorageService: LocalstorageService) {}
+  constructor(
+    private readonly localStorageService: LocalstorageService,
+    private readonly route: Router
+  ) {}
 
   public login(data: any): boolean {
     const { email, password } = CONFIG.adminUser;
@@ -27,7 +31,12 @@ export class AuthenticationService {
     return true;
   }
 
-  public getAuhtData(): any{ 
-    return this.localStorageService.get('authUser');
+  public getAuhtData(): any {
+    return this.localStorageService.get("authUser");
+  }
+
+  public logOut(): void {
+    this.route.navigate(["/"]);
+    this.localStorageService.delete("authUser");
   }
 }
