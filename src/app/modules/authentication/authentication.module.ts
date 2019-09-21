@@ -5,6 +5,7 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CustomerModalComponent } from '../customers/customer-modal/customer-modal.component';
 
 
 @NgModule({

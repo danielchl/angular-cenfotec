@@ -8,10 +8,17 @@ import { CustomerService } from "./data-services/customer.service";
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { InterceptorService } from "./services/interceptor.service";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [HeaderComponent],
-  imports: [CommonModule, HttpClientModule, SharedModule, RouterModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    SharedModule,
+    RouterModule,
+    NgbModule
+  ],
   exports: [CommonModule, HttpClientModule, HeaderComponent],
   providers: [
     AuthenticationService,

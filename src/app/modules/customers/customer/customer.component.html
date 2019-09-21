@@ -1,1 +1,12 @@
-<p>customer works!</p>
+<img [src]="customer.img" class="card-img-top" alt="..." />
+<div class="card-body">
+  <h5 class="card-title">{{ customer.name }}</h5>
+  <p><strong>Age:</strong> {{ customer.age }}</p>
+  <p class="card-text">
+    {{ customer.description }}
+  </p>
+  <button (click)="openCustomerModal()" class="btn btn-primary mr-3">
+    Edit
+  </button>
+  <button (click)="delete()" class="btn btn-danger">Delete</button>
+</div>

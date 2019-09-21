@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, timeout } from "rxjs/operators";
+import { CONFIG } from 'src/app/config';
 
 @Injectable({
   providedIn: "root"
@@ -66,10 +67,47 @@ export class CustomerService {
   // }
 
   public getCustomers(): Observable<any> {
-    return this.http.get("http://localhost:3000/customers").pipe(
-      map(data => data),
-      catchError(this.handleError<any>("getCustomer"))
-    );
+    const params: HttpParams = this.generateParams({ _page: 1, _limit: 3 });
+
+    return this.http
+      .get(`${ CONFIG.api.basePath }/customers`)
+      .pipe(catchError(this.handleError<any>("getCustomer")));
+  }
+
+  public addCustomers(data: any): Observable<any> {
+    return this.http
+      .post(`${ CONFIG.api.basePath }/customers`, data)
+      .pipe(catchError(this.handleError<any>("getCustomer")));
+  }
+
+  public deleteCustomer(id: number): Observable<any> {
+    return this.http
+      .delete(`${ CONFIG.api.basePath }/customers/${id}`)
+      .pipe(catchError(this.handleError<any>("getCustomer")));
+  }
+
+  public updateCustomer(id: number, data:any): Observable<any> {
+    return this.http
+      .patch(`${ CONFIG.api.basePath }/customers/${id}`, data )
+      .pipe(catchError(this.handleError<any>("getCustomer")));
+  }
+
+
+  public generateParams(params: any = {}): HttpParams {
+    let httpParams: HttpParams = new HttpParams();
+
+    Object.keys(params).forEach(key => {
+      const param = params[key];
+      if (Array.isArray(param)) {
+        param.forEach(value => {
+          httpParams = httpParams.append(key, value);
+        });
+      } else {
+        httpParams = httpParams.set(key, param);
+      }
+    });
+
+    return httpParams;
   }
 
   /**
