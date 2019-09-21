@@ -2,7 +2,7 @@
   <div class="col-12">
     <nav class="nav" *ngIf="isLoggedIn">
       <a class="nav-link active" [routerLink]="[ '/customers' ]">Customers</a>
-      <a class="nav-link" >Link</a>
+      <a class="nav-link" (click)="logOut()" >Log out</a>
       <a class="nav-link" >Link</a>
       <a class="nav-link disabled"  tabindex="-1" aria-disabled="true"
         >Disabled</a
