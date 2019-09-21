@@ -6,14 +6,16 @@ import { ParentComponent } from './parent/parent.component';
 import { ListComponent } from './list/list.component';
 import { CustomerComponent } from './customer/customer.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CustomerModalComponent } from './customer-modal/customer-modal.component';
 
 
 @NgModule({
-  declarations: [ParentComponent, ListComponent, CustomerComponent],
+  declarations: [ParentComponent, ListComponent, CustomerComponent, CustomerModalComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,
     SharedModule
-  ]
+  ],
+  entryComponents: [CustomerModalComponent]
 })
 export class CustomersModule { }

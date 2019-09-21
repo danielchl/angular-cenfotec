@@ -5,6 +5,10 @@ export const CONFIG = {
 
   adminUser: {
     email: "admin@cenfo.com",
-    password: "Test1234!" 
+    password: "Test1234!"
+  },
+
+  api: {
+    basePath: "http://localhost:3000"
   }
 };
