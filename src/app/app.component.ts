@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CONFIG } from './config/index';
 
 @Component({
   selector: 'cenfo-root',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'cenfo-angular';
+  
+  constructor( private translateService: TranslateService ){
+    this.translateService.setDefaultLang(CONFIG.defaultLang);
+  }
 }

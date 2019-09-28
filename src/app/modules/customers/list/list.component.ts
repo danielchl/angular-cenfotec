@@ -11,6 +11,12 @@ import { CustomerModalComponent } from "../customer-modal/customer-modal.compone
 export class ListComponent implements OnInit {
   public customers: any[];
 
+  public pagination = {
+    page: 1,
+    pageSize: 10,
+    totalElements: 13
+  };
+
   constructor(
     private readonly customerService: CustomerService,
     private readonly modalService: NgbModal
@@ -20,13 +26,23 @@ export class ListComponent implements OnInit {
     this.loadCustomers();
   }
 
+  public setRecordsPerPage(range?: any): void {
+    this.pagination.pageSize = range;
+    this.loadCustomers();
+  }
+
+  public setPage(page: number): void {
+    this.pagination.page = page;
+    this.loadCustomers();
+  }
+
   private loadCustomers(): void {
-    this.customerService.getCustomers().subscribe(response => {
-      this.customers = response;
-      // const count = response.headers.get("X-Total-Count");
-      // console.log(count / 3);
+    this.customerService.getCustomers(this.pagination).subscribe(response => {
+      console.log(response);
+      
+      this.customers = response.body;
+      this.pagination.totalElements = response.totalElements;
     });
-    // this.customers = this.customerService.getCustomers();
   }
 
   public openCustomerModal(isEdit: boolean = true) {
@@ -55,3 +71,5 @@ export class ListComponent implements OnInit {
     );
   }
 }
+
+

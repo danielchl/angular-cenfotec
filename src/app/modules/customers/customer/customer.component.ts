@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { CustomerModalComponent } from "../customer-modal/customer-modal.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "cenfo-customer",
@@ -15,7 +16,7 @@ export class CustomerComponent implements OnInit {
   @Output()
   public readonly deletedUser: EventEmitter<any> = new EventEmitter<any>()
 
-  constructor(private readonly modalService: NgbModal) {}
+  constructor(private readonly modalService: NgbModal, private readonly route:Router) {}
 
   ngOnInit() {}
 
@@ -28,6 +29,10 @@ export class CustomerComponent implements OnInit {
         this.success.emit(true);
       }
     )
+  }
+
+  public goToDetails():void { 
+    this.route.navigate(['customers/details', this.customer.id])
   }
 
   public delete(): void {

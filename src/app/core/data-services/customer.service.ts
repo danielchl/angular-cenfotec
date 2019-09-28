@@ -3,111 +3,120 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, timeout } from "rxjs/operators";
-import { CONFIG } from 'src/app/config';
+import { CONFIG } from "src/app/config";
+import { UtilsService } from "../services/utils.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class CustomerService {
-  public customers: any[] = [
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    },
-    {
-      fname: "Daniel",
-      lname: "Chinchilla",
-      age: "29",
-      description: "Angular dev"
-    }
-  ];
+  // public customers: any[] = [
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   },
+  //   {
+  //     fname: "Daniel",
+  //     lname: "Chinchilla",
+  //     age: "29",
+  //     description: "Angular dev"
+  //   }
+  // ];
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly utilsService: UtilsService
+  ) {}
 
   // public getCustomers(): any {
   //   return this.customers;
   // }
 
-  public getCustomers(): Observable<any> {
-    const params: HttpParams = this.generateParams({ _page: 1, _limit: 3 });
+  public getCustomers(pagination?: any): Observable<any> {
+    if (pagination) {
+      pagination = {
+        _page: pagination.page,
+        _limit: pagination.pageSize
+      };
+    }
+
+    const params: HttpParams = this.utilsService.generateParams(pagination);
 
     return this.http
-      .get(`${ CONFIG.api.basePath }/customers`)
+      .get(`${CONFIG.api.basePath}/customers`, { params, observe: "response" })
+      .pipe(
+        map(response => {
+          console.log(response);
+          
+          return this.utilsService.extractData(response);
+        }),
+        catchError(this.handleError<any>("getCustomer"))
+      );
+  }
+
+  /**
+   * getCustomer
+   */
+  public getCustomer(id: number) {
+    return this.http
+      .get(`${CONFIG.api.basePath}/customers/${id}`)
       .pipe(catchError(this.handleError<any>("getCustomer")));
   }
 
   public addCustomers(data: any): Observable<any> {
     return this.http
-      .post(`${ CONFIG.api.basePath }/customers`, data)
+      .post(`${CONFIG.api.basePath}/customers`, data)
       .pipe(catchError(this.handleError<any>("getCustomer")));
   }
 
   public deleteCustomer(id: number): Observable<any> {
     return this.http
-      .delete(`${ CONFIG.api.basePath }/customers/${id}`)
+      .delete(`${CONFIG.api.basePath}/customers/${id}`)
       .pipe(catchError(this.handleError<any>("getCustomer")));
   }
 
-  public updateCustomer(id: number, data:any): Observable<any> {
+  public updateCustomer(id: number, data: any): Observable<any> {
     return this.http
-      .patch(`${ CONFIG.api.basePath }/customers/${id}`, data )
+      .patch(`${CONFIG.api.basePath}/customers/${id}`, data)
       .pipe(catchError(this.handleError<any>("getCustomer")));
-  }
-
-
-  public generateParams(params: any = {}): HttpParams {
-    let httpParams: HttpParams = new HttpParams();
-
-    Object.keys(params).forEach(key => {
-      const param = params[key];
-      if (Array.isArray(param)) {
-        param.forEach(value => {
-          httpParams = httpParams.append(key, value);
-        });
-      } else {
-        httpParams = httpParams.set(key, param);
-      }
-    });
-
-    return httpParams;
   }
 
   /**

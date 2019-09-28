@@ -9,6 +9,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { InterceptorService } from "./services/interceptor.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { UtilsService } from './services/utils.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -24,6 +25,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     AuthenticationService,
     LocalstorageService,
     CustomerService,
+    UtilsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
