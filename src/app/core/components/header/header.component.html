@@ -1,12 +1,16 @@
 <header class="row">
   <div class="col-12">
     <nav class="nav" *ngIf="isLoggedIn">
-      <a class="nav-link active" [routerLink]="[ '/customers' ]">Customers</a>
-      <a class="nav-link" (click)="logOut()" >Log out</a>
-      <a class="nav-link" >Link</a>
-      <a class="nav-link disabled"  tabindex="-1" aria-disabled="true"
+      <a class="nav-link active" [routerLink]="['/customers']">Customers</a>
+      <a class="nav-link" (click)="logOut()">Log out</a>
+      <a class="nav-link">Link</a>
+      <a class="nav-link disabled" tabindex="-1" aria-disabled="true"
         >Disabled</a
       >
+      <select name="lang" id="lang" (change)="languageChange($event)">
+        <option [value]="languages.EN" [selected]="isDefaultLang(languages.EN)">EN</option>
+        <option [value]="languages.ES" [selected]="isDefaultLang(languages.ES)">ES</option>
+      </select>
     </nav>
   </div>
 </header>

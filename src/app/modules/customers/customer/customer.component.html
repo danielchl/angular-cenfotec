@@ -2,11 +2,15 @@
 <div class="card-body">
   <h5 class="card-title">{{ customer.name }}</h5>
   <p><strong>Age:</strong> {{ customer.age }}</p>
+  <p><strong>Birthday:</strong> {{ customer.birthday | date:"yyyy" }}</p>
   <p class="card-text">
     {{ customer.description }}
   </p>
   <button (click)="openCustomerModal()" class="btn btn-primary mr-3">
     Edit
+  </button>
+  <button (click)="goToDetails()" class="btn btn-secondary mr-3">
+    Details
   </button>
   <button (click)="delete()" class="btn btn-danger">Delete</button>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthenticationService } from "../../services/authentication.service";
+import { TranslateService } from "@ngx-translate/core";
+import { LANGUAGES } from '../../../shared/enums';
 
 @Component({
   selector: "cenfo-header",
@@ -9,7 +11,12 @@ import { AuthenticationService } from "../../services/authentication.service";
 export class HeaderComponent implements OnInit {
   // public isLoggedIn: boolean = false;
 
-  constructor(private readonly authService: AuthenticationService) {}
+  public languages = LANGUAGES;
+
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly translateService: TranslateService
+  ) {}
 
   ngOnInit() {}
 
@@ -17,7 +24,21 @@ export class HeaderComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 
-  public logOut():void {
+  public logOut(): void {
     this.authService.logOut();
+  }
+
+  public languageChange(lang: any): void {
+    console.log(lang.target.value);
+
+    this.translateService.use(lang.target.value);
+  }
+
+  public get defaultLang(): string {
+    return this.translateService.getDefaultLang();
+  }
+
+  public isDefaultLang(lang: any): boolean {
+    return lang === this.defaultLang;
   }
 }

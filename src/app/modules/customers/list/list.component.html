@@ -1,19 +1,33 @@
 <div class="row">
   <div class="col-12">
-    <h1>Customers List</h1>
+    <h1>{{ "CUSTOMERS.TITLE" | translate }}</h1>
     <hr />
   </div>
 </div>
 <div class="row">
   <div class="col-12">
-    <button class="btn btn-primary" (click)="openCustomerModal(false)"> Crear Customer </button>
+    <button class="btn btn-primary mb-3" (click)="openCustomerModal(false)">
+      Crear Customer
+    </button>
   </div>
 </div>
 
 <div class="row">
   <div class="card-columns">
     <div class="card" *ngFor="let customer of customers">
-      <cenfo-customer [customer]="customer" (success)="loadCustomers()" (deletedUser)="deteleUser($event)" ></cenfo-customer>
+      <cenfo-customer
+        [customer]="customer"
+        (success)="loadCustomers()"
+        (deletedUser)="deteleUser($event)"
+      ></cenfo-customer>
     </div>
   </div>
 </div>
+
+<cenfo-pagination
+  [page]="pagination.page"
+  [pageSize]="pagination.pageSize"
+  [totalElements]="pagination.totalElements"
+  (recordsPerPageChanged)="setRecordsPerPage( $event )"
+  (pageChanged)="setPage( $event )"
+></cenfo-pagination>
